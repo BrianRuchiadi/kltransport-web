@@ -1,0 +1,14 @@
+@import 'variables';
+@import './helpers/typography';
+body {
+    background-color: #F8F8F8;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+        color: #FFE2D1;
+        text-decoration: underline;
+    }
+}

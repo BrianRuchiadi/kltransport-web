@@ -1,0 +1,103 @@
+table {
+    margin: 0 auto;
+    thead {
+        tr th {
+            font-size: 18px;
+        }
+    }
+    tbody {
+        select {
+            width: 100%;
+        }
+        tr td {
+            &.label {
+                position: relative;
+                width: 45%;
+                background-color: #519872;
+                color: white;
+                padding: 4px 10px;
+            }
+        }
+    }
+}
+
+.fare {
+    h1 {
+        text-align: center;
+    }
+    table {
+        margin-top: 30px;
+        tbody {
+            tr td:nth-of-type(2) {
+                background-color: #247BA0;
+                text-align: right;
+                letter-spacing: 3px;
+                font-size: 20px;
+                color: white;
+            }
+        }
+    }
+}
+
+.route {
+    h1 {
+        text-align: center;
+    }
+    .route-icon {
+        width: 20px;
+        margin-right: 20px;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.fa.fa-exchange {
+    &:hover {
+        background-color: #62A8AC;
+        color: white;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+.fa.fa-times {
+    position: absolute;
+    padding: 2px 4px;
+    top: 3px;
+    right: 5px;
+    color: red;
+    border-radius: 50%;
+    background-color: white;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+ul {
+    padding-left: 10px;
+    li {
+        margin-top: 2px;
+        margin-bottom: 2px;
+        list-style-type: none;
+        background-color: #0B2027;
+        color: white;
+        &:hover {
+            background-color: white;
+            color: #0B2027;
+            cursor: pointer;
+        }
+    }
+}
+
+.small-icon {
+    width: 20px;
+    padding-right: 5px;
+    vertical-align: bottom;
+}

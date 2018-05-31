@@ -1,0 +1,29 @@
+<div class="search">
+    <input type="text" ng-model="stationSearch" (keyup)="triggerSearch($event)" placeholder="enter station name or reference name..." />
+    <table *ngIf="filteredStations.length > 0">
+        <thead>
+            <tr>
+                <th width="100">Code</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let filtered of filteredStations">
+                <td>{{ filtered.name_ref }}</td>
+                <td>{{ filtered.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngFor="let line of lines">
+    <h1><img src="/assets/lines/{{ line.icon }}" /> {{ line.name }}</h1>
+    <table>
+        <tbody>
+            <tr *ngFor="let station of line.nodes">
+                <td width="100">{{ station.name_ref }}</td>
+                <td>{{ station.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

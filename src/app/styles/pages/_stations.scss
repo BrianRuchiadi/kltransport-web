@@ -1,0 +1,41 @@
+div {
+    padding-left: 40px;
+}
+
+.search {
+    margin-top: 20px;
+    input[type=text] {
+        border-radius: 4px;
+        min-width: 400px;
+    }
+    table {
+        margin-top: 10px;
+        thead {
+            tr th {
+                padding-left: 10px;
+            }
+        }
+    }
+}
+
+table {
+    thead {
+        tr th {
+            text-align: left;
+        }
+    }
+    tbody {
+        tr {
+            &:nth-of-type(odd) {
+                background-color: #FFFCFF;
+            }
+            &:nth-of-type(even) {
+                background-color: #247BA0;
+                color: white;
+            }
+            td {
+                padding: 4px 10px;
+            }
+        }
+    }
+}

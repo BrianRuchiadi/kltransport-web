@@ -1,0 +1,58 @@
+<table>
+    <thead>
+        <tr>
+            <th>From</th>
+            <th width="80"></th>
+            <th>To</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <select ng-model="stationFrom" (change)="changeSelectedStation($event, 'stationFrom')">
+                <option *ngFor="let station of stations" [value]="station.id">
+                  {{ station.name }} - {{ station.name_ref }}
+                </option>
+              </select>
+            </td>
+            <td></td>
+            <td>
+                <select ng-model="stationTo" (change)="changeSelectedStation($event, 'stationTo')">
+                <option *ngFor="let station of stations" [value]="station.id">
+                  {{ station.name }} - {{ station.name_ref }}
+                </option>
+              </select>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table *ngIf="selectedFare" class="fare">
+    <tbody>
+        <tr>
+            <th>Fare Type</th>
+            <th>Fare Amount</th>
+        </tr>
+        <tr>
+            <td>Cash / Token Fare</td>
+            <td>{{ selectedFare.cash_fare }}</td>
+        </tr>
+        <tr>
+            <td>Cashless / TnG Fare</td>
+            <td>{{ selectedFare.cashless_fare }}</td>
+        </tr>
+        <tr>
+            <td>Concession Fare</td>
+            <td>{{ selectedFare.concession_fare }}</td>
+        </tr>
+        <tr>
+            <td>Weekly Fare</td>
+            <td>{{ selectedFare.weekly_fare }}</td>
+        </tr>
+        <tr>
+            <td>Monthly Fare</td>
+            <td>{{ selectedFare.monthly_fare }}</td>
+        </tr>
+
+    </tbody>
+</table>

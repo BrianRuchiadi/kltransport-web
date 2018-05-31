@@ -1,0 +1,82 @@
+<table>
+    <thead>
+        <tr>
+            <th>From</th>
+            <th width="80"></th>
+            <th>To</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="label" *ngIf="stationFrom">
+                <img class="small-icon" src="/assets/lines/{{ stationFrom.line_icon }}" /> {{ stationFrom.name }}
+                <i class="fa fa-times text-right" aria-hidden="true" (click)="removeStation('from')"></i>
+            </td>
+            <td *ngIf="!stationFrom">
+                <input type="text" ng-model="stationFromSearch" (keyup)="triggerSearch($event, 'from')" placeholder="enter station keyword" />
+            </td>
+            <td class="text-center"><i class="fa fa-exchange" aria-hidden="true" (click)="switchFromTo()"></i></td>
+            <td class="label" *ngIf="stationTo">
+                <img class="small-icon" src="/assets/lines/{{ stationTo.line_icon }}" /> {{ stationTo.name }}
+                <i class="fa fa-times text-right" aria-hidden="true" (click)="removeStation('to')"></i>
+            </td>
+            <td *ngIf="!stationTo">
+                <input type="text" ng-model="stationToSearch" (keyup)="triggerSearch($event, 'to')" placeholder="enter station keyword" />
+            </td>
+        </tr>
+        <tr>
+            <td *ngIf="filteredFromStations.length">
+                <ul>
+                    <li *ngFor="let station of filteredFromStations" (click)="changeStation('from', station.id)">
+                        <img src="/assets/lines/{{ station.line_icon }}" class="small-icon" />{{ station.name }} </li>
+                </ul>
+            </td>
+            <td *ngIf="!filteredFromStations.length">
+
+            </td>
+            <td></td>
+            <td *ngIf="filteredToStations.length">
+                <ul>
+                    <li *ngFor="let station of filteredToStations" (click)="changeStation('to', station.id)">
+                        <img src="/assets/lines/{{ station.line_icon }}" class="small-icon" />{{ station.name }} </li>
+                </ul>
+            </td>
+            <td *ngIf="!filteredToStations.length">
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div *ngIf="fare" class="fare">
+    <h1>MRT Fare</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>Fare Type</th>
+                <th width="200">Fare Amount</th>
+            </tr>
+            <tr>
+                <td>Cash / Token Fare</td>
+                <td>{{ fare.cash_fare }}</td>
+            </tr>
+            <tr>
+                <td>Cashless / TnG Fare</td>
+                <td>{{ fare.cashless_fare }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="bestRoute.length" class="route">
+    <h1>MRT Route</h1>
+    <table>
+        <tbody>
+            <tr *ngFor="let route of bestRoute">
+                <td>
+                    <img src="/assets/lines/{{ route.line.icon }}" class="route-icon" />{{ route.name_ref }} - {{ route.name }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
