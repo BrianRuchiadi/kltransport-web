@@ -6,7 +6,7 @@
         <tr>
             <td class="label" *ngIf="stationFrom">
                 <img class="small-icon" src="/assets/lines/{{ stationFrom.line_icon }}" /> {{ stationFrom.name }}
-                <i class="fa fa-times text-right" aria-hidden="true" (click)="removeStation('from')"></i>
+                <i class="fa fa-times" aria-hidden="true" (click)="removeStation('from')"></i>
             </td>
             <td *ngIf="!stationFrom">
                 <input type="text" ng-model="stationFromSearch" (keyup)="triggerSearch($event, 'from')" placeholder="enter station keyword" />
@@ -26,7 +26,7 @@
         <tr>
             <td class="label" *ngIf="stationTo">
                 <img class="small-icon" src="/assets/lines/{{ stationTo.line_icon }}" /> {{ stationTo.name }}
-                <i class="fa fa-times text-right" aria-hidden="true" (click)="removeStation('to')"></i>
+                <i class="fa fa-times" aria-hidden="true" (click)="removeStation('to')"></i>
             </td>
             <td *ngIf="!stationTo">
                 <input type="text" ng-model="stationToSearch" (keyup)="triggerSearch($event, 'to')" placeholder="enter station keyword" />
@@ -65,9 +65,27 @@
 
 <div *ngIf="bestRoute.length" class="route">
     <h1>MRT Route</h1>
+
     <table>
-        <tbody>
+        <thead>
+            <tr>
+                <td *ngIf="this.isShortcut" class="label-small" (click)="displayRoute('full')"> Display Full Route
+                    <i class="fa fa-arrow-down" aria-hidden="true"></i></td>
+
+                <td *ngIf="!this.isShortcut" class="label-small" (click)="displayRoute('shortcut')"> Display Brief Route
+                    <i class="fa fa-arrow-up" aria-hidden="true"></i></td>
+            </tr>
+        </thead>
+        <tbody *ngIf="!this.isShortcut">
             <tr *ngFor="let route of bestRoute">
+                <td>
+                    <img src="/assets/lines/{{ route.line.icon }}" class="route-icon" />{{ route.name_ref }} - {{ route.name }}
+                </td>
+            </tr>
+        </tbody>
+
+        <tbody *ngIf="this.isShortcut">
+            <tr *ngFor="let route of shortcutRoute">
                 <td>
                     <img src="/assets/lines/{{ route.line.icon }}" class="route-icon" />{{ route.name_ref }} - {{ route.name }}
                 </td>

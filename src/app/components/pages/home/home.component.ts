@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   lines: Line[];
   stations: Station[];
   bestRoute: Station[];
+  shortcutRoute: Station[];
   filteredFromStations: Station[];
   filteredToStations: Station[];
   fare: Fare;
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
   secondParam: String;
   routeFrom: String;
   routeTo: String;
+  isShortcut: Boolean;
   //
   constructor(
     private routesService: RoutesService,
@@ -44,6 +46,7 @@ export class HomeComponent implements OnInit {
 
     this.routeFrom = this.firstParam.replace('-', ' ');
     this.routeTo = this.secondParam.replace('-', ' ');
+    this.isShortcut = false;
     //
     this.spinnerService.show();
     this.initVariablesValues();
@@ -83,8 +86,10 @@ export class HomeComponent implements OnInit {
       );
       this.filteredToStations.length = (this.filteredToStations.length > 5) ? 5 : this.filteredToStations.length;
     }
+  }
 
-    console.log(['search results', this.filteredFromStations]);
+  displayRoute(type) {
+    this.isShortcut = (type === 'full') ? false : true;
   }
 
   removeStation(type) {
@@ -119,7 +124,6 @@ export class HomeComponent implements OnInit {
         this.lines = response;
         this.initStations();
         this.getRoutesDetails();
-        console.log(['getStations in HomeComponent called, and this.lines is set', this.lines]);
       });
   }
 
@@ -141,8 +145,30 @@ export class HomeComponent implements OnInit {
         this.bestRoute = response.bestRoute;
         this.fare = response.fare;
         this.spinnerService.hide();
-        console.log(['this.bestRoutes and this.fare after getRoutesDetails', this.bestRoute, this.fare]);
+        this.initRouteShortcut();
       });
+  }
+
+  initRouteShortcut() {
+    let lineIdx = [];
+    this.shortcutRoute = [];
+
+    lineIdx = this.bestRoute.map((route) => route.line.id);
+    lineIdx = lineIdx.filter((value, index, arr) => arr.indexOf(value) === index);
+
+    for (let id of lineIdx) {
+      let linesRoute = [];
+      linesRoute = this.bestRoute.filter((route) => route.line_id === id);
+
+      if (linesRoute.length > 1) {
+        this.shortcutRoute.push(linesRoute[0]);
+        this.shortcutRoute.push(linesRoute[linesRoute.length - 1]);
+      } else {
+        this.shortcutRoute.push(linesRoute[0]);
+      }
+    }
+
+    this.isShortcut = (this.shortcutRoute.length > 3) ? true : false;
   }
 
   initStations() {

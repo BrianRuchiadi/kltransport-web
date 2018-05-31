@@ -5,16 +5,26 @@ table {
             font-size: 18px;
         }
     }
-    tbody {
-        tr td {
-            &.label {
-                position: relative;
-                width: 90vw;
-                background-color: #519872;
-                color: white;
-                padding: 4px 10px;
-            }
-        }
+}
+
+.label {
+    position: relative;
+    width: 90vw;
+    background-color: #519872;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.label-small {
+    position: relative;
+    background-color: #519872;
+    color: white;
+    padding: 4px 10px;
+    &:hover {
+        background-color: white;
+        color: #519872;
+        cursor: pointer;
     }
 }
 
@@ -54,6 +64,10 @@ input[type=text] {
     text-align: center;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .text-right {
     text-align: right;
 }
@@ -68,7 +82,9 @@ input[type=text] {
     }
 }
 
-.fa.fa-times {
+.fa.fa-times,
+.fa.fa-arrow-down,
+.fa.fa-arrow-up {
     position: absolute;
     padding: 2px 4px;
     top: 3px;
@@ -79,6 +95,11 @@ input[type=text] {
     &:hover {
         cursor: pointer;
     }
+}
+
+.fa.fa-arrow-down,
+.fa.fa-arrow-up {
+    color: black;
 }
 
 ul {
