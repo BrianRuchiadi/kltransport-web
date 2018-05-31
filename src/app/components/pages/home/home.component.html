@@ -44,7 +44,7 @@
 </table>
 
 <div *ngIf="fare" class="fare">
-    <h1>MRT Fare</h1>
+    <h1>MRT Fare {{ stationFrom.name }} - {{ stationTo.name }}</h1>
     <table>
         <tbody>
             <tr>
@@ -64,7 +64,7 @@
 </div>
 
 <div *ngIf="bestRoute.length" class="route">
-    <h1>MRT Route</h1>
+    <h1>MRT Route {{ stationFrom.name}} - {{ stationTo.name }}</h1>
 
     <table>
         <thead>
