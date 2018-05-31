@@ -17,7 +17,7 @@ export class RoutesService {
     private http: HttpClient
   ) { }
 
-  public getRoutesDetails(stationFrom: Station, stationTo: Station) {
+  public getRoutesDetails(stationFrom: Station, stationTo: Station): Observable<any> {
     return this.http.get(API_URL + '/routes/' + stationFrom.id + '/' + stationTo.id + '/details')
       .pipe(
         tap(lines => console.log('getRoutesDetails api called'))
