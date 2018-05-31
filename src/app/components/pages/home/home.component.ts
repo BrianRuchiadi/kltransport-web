@@ -133,9 +133,9 @@ export class HomeComponent implements OnInit {
       this.fare = null;
       return;
     }
-    this.firstParam = this.stationFrom.name.replace(' ', '-').toLowerCase();
-    this.secondParam = this.stationTo.name.replace(' ', '-').toLowerCase();
-
+    this.firstParam = this.stationFrom.name.replace(/ /g, '-').toLowerCase();
+    this.secondParam = this.stationTo.name.replace(/ /g, '-').toLowerCase();
+    //
     this.updateParam();
     this.spinnerService.show();
     //
@@ -168,7 +168,7 @@ export class HomeComponent implements OnInit {
       }
     }
 
-    this.isShortcut = (this.shortcutRoute.length > 3) ? true : false;
+    this.isShortcut = true;
   }
 
   initStations() {
