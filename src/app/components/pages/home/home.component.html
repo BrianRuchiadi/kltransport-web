@@ -1,12 +1,8 @@
 <table>
-    <thead>
+    <tbody>
         <tr>
             <th>From</th>
-            <th width="80"></th>
-            <th>To</th>
         </tr>
-    </thead>
-    <tbody>
         <tr>
             <td class="label" *ngIf="stationFrom">
                 <img class="small-icon" src="/assets/lines/{{ stationFrom.line_icon }}" /> {{ stationFrom.name }}
@@ -15,7 +11,19 @@
             <td *ngIf="!stationFrom">
                 <input type="text" ng-model="stationFromSearch" (keyup)="triggerSearch($event, 'from')" placeholder="enter station keyword" />
             </td>
-            <td class="text-center"><i class="fa fa-exchange" aria-hidden="true" (click)="switchFromTo()"></i></td>
+        </tr>
+        <tr *ngIf="filteredFromStations.length">
+            <td>
+                <ul>
+                    <li *ngFor="let station of filteredFromStations" (click)="changeStation('from', station.id)">
+                        <img src="/assets/lines/{{ station.line_icon }}" class="small-icon" />{{ station.name }} </li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>To</th>
+        </tr>
+        <tr>
             <td class="label" *ngIf="stationTo">
                 <img class="small-icon" src="/assets/lines/{{ stationTo.line_icon }}" /> {{ stationTo.name }}
                 <i class="fa fa-times text-right" aria-hidden="true" (click)="removeStation('to')"></i>
@@ -24,25 +32,12 @@
                 <input type="text" ng-model="stationToSearch" (keyup)="triggerSearch($event, 'to')" placeholder="enter station keyword" />
             </td>
         </tr>
-        <tr>
-            <td *ngIf="filteredFromStations.length">
-                <ul>
-                    <li *ngFor="let station of filteredFromStations" (click)="changeStation('from', station.id)">
-                        <img src="/assets/lines/{{ station.line_icon }}" class="small-icon" />{{ station.name }} </li>
-                </ul>
-            </td>
-            <td *ngIf="!filteredFromStations.length">
-
-            </td>
-            <td></td>
-            <td *ngIf="filteredToStations.length">
+        <tr *ngIf="filteredToStations.length">
+            <td>
                 <ul>
                     <li *ngFor="let station of filteredToStations" (click)="changeStation('to', station.id)">
                         <img src="/assets/lines/{{ station.line_icon }}" class="small-icon" />{{ station.name }} </li>
                 </ul>
-            </td>
-            <td *ngIf="!filteredToStations.length">
-
             </td>
         </tr>
     </tbody>

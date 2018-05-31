@@ -6,19 +6,20 @@ table {
         }
     }
     tbody {
-        select {
-            width: 100%;
-        }
         tr td {
             &.label {
                 position: relative;
-                width: 45%;
+                width: 90vw;
                 background-color: #519872;
                 color: white;
                 padding: 4px 10px;
             }
         }
     }
+}
+
+input[type=text] {
+    width: 100%;
 }
 
 .fare {

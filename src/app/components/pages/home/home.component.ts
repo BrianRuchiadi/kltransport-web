@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Station } from './../../../classes/station';
 import { Fare } from './../../../classes/fare';
@@ -23,14 +25,26 @@ export class HomeComponent implements OnInit {
   fare: Fare;
   stationFrom: Station;
   stationTo: Station;
+  firstParam: String;
+  secondParam: String;
+  routeFrom: String;
+  routeTo: String;
   //
   constructor(
     private routesService: RoutesService,
     private stationsService: StationsService,
-    private spinnerService: Ng4LoadingSpinnerService
+    private spinnerService: Ng4LoadingSpinnerService,
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit() {
+    this.firstParam = this.route.snapshot.params.routeOne;
+    this.secondParam = this.route.snapshot.params.routeTwo;
+
+    this.routeFrom = this.firstParam.replace('-', ' ');
+    this.routeTo = this.secondParam.replace('-', ' ');
+    //
     this.spinnerService.show();
     this.initVariablesValues();
     this.getStations();
@@ -71,20 +85,6 @@ export class HomeComponent implements OnInit {
     }
 
     console.log(['search results', this.filteredFromStations]);
-  }
-
-  // changeSelectedStation(ev, selectedVar) {
-  //   if (selectedVar === 'stationFrom') {
-  //     this.stationFrom = this.getSelectedStation(+ev.target.value);
-  //   } else {
-  //     this.stationTo = this.getSelectedStation(+ev.target.value);
-  //   }
-  //   this.getRoutesDetails();
-  // }
-
-  switchFromTo() {
-    [this.stationFrom, this.stationTo] = [this.stationTo, this.stationFrom];
-    this.bestRoute = this.bestRoute.reverse();
   }
 
   removeStation(type) {
@@ -129,6 +129,10 @@ export class HomeComponent implements OnInit {
       this.fare = null;
       return;
     }
+    this.firstParam = this.stationFrom.name.replace(' ', '-').toLowerCase();
+    this.secondParam = this.stationTo.name.replace(' ', '-').toLowerCase();
+
+    this.updateParam();
     this.spinnerService.show();
     //
     return this.routesService.getRoutesDetails(this.stationFrom, this.stationTo)
@@ -142,14 +146,41 @@ export class HomeComponent implements OnInit {
   }
 
   initStations() {
+    let countFrom = 0;
+    let countTo = 0;
+
     for (let line of this.lines) {
       for (let node of line.nodes) {
         node['line_icon'] = line.icon;
         this.stations.push(node);
+
+        if (node.name.toLowerCase() === this.routeFrom && countFrom < 1) {
+          this.stationFrom = node;
+          countFrom++;
+        }
+
+        if (node.name.toLowerCase() === this.routeTo && countTo < 1) {
+          this.stationTo = node;
+          countTo++;
+        }
       }
     }
-    this.stationFrom = this.stations[0];
-    this.stationTo = this.stations[0];
+    this.checkStationValidity();
+  }
+
+  updateParam() {
+    this.location.replaceState('mrt/' + this.firstParam + '/' + this.secondParam);
+  }
+
+  // revert to default putra heights route when the parameter is invalid, id : 8
+  checkStationValidity() {
+    if (!this.stationFrom) {
+      this.stationFrom = this.getSelectedStation(8);
+    }
+
+    if (!this.stationTo) {
+      this.stationTo = this.getSelectedStation(8);
+    }
   }
 
 }

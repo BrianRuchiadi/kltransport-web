@@ -8,8 +8,8 @@ import { StationsComponent } from './components/pages/stations/stations.componen
 import { LinesComponent } from './components/pages/lines/lines.component';
 
 const routes: Routes = [
-  { path: 'mrt', component: HomeComponent },
-  { path: '**', redirectTo: 'mrt' },
+  { path: 'mrt/:routeOne/:routeTwo', component: HomeComponent },
+  { path: '**', redirectTo: 'mrt/putra-heights/putra-heights' },
   // { path: 'about', component: AboutComponent },
   // { path: 'fares', component: FaresComponent },
   // { path: 'stations', component: StationsComponent },
